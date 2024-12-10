@@ -7,8 +7,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
-
-
 <body>
 
 <div id="comments-container"></div>
@@ -31,8 +29,9 @@ const unlikedImage = 'https://cdn-icons-png.flaticon.com/512/2228/2228016.png';
     const commentsContainer = document.getElementById('comments-container');
     commentsContainer.innerHTML = ''; 
     
-    commentsData.forEach(comment => {
+    commentsData.forEach((comment ,index) => {
     const commentDiv = document.createElement('div');
+    commentDiv.dataset.commentId = index;
     commentDiv.classList.add('comment');
     
     const p = document.createElement('p');
@@ -56,8 +55,28 @@ const unlikedImage = 'https://cdn-icons-png.flaticon.com/512/2228/2228016.png';
    });
     
 addLikeEventListeners();
+
+addCommentClickListeners();
     }
+
     
+    function addCommentClickListeners() {
+    const commentElements = document.querySelectorAll('.comment');
+    commentElements.forEach(commentElement => {
+    commentElement.addEventListener('click', (event) => {
+      if (!event.target.closest('.like-button')) {
+        const commentId = parseInt(commentElement.dataset.commentId);
+        if (commentId >= 0 && commentId < commentsData.length) {
+          const commentText = commentsData[commentId].text;
+          document.getElementById('new-comment').value = `> ${commentText}\n`;
+          event.stopPropagation();
+         
+        }
+      }
+    });
+  });
+}
+
 function addLikeEventListeners() {
 const likeButtons = document.querySelectorAll('.like-button');
 likeButtons.forEach(button => {
@@ -71,7 +90,8 @@ commentsData[commentId].liked = !commentsData[commentId].liked;
 commentsData[commentId].likesCount = commentsData[commentId].liked ? commentsData[commentId].likesCount + 1 : commentsData[commentId].likesCount -1;
 renderComments();
   }
-    
+
+ 
  document.getElementById('add-comment').addEventListener('click', () => {
  const newCommentText = document.getElementById('new-comment').value;
    if (newCommentText.trim() !== '') {
