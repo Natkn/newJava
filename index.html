@@ -7,8 +7,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
-
-
 <body>
 
 <div id="comments-container"></div>
@@ -61,6 +59,9 @@ addLikeEventListeners();
 addCommentClickListeners();
     }
 
+javahw2
+    
+main
     function addCommentClickListeners() {
     const commentElements = document.querySelectorAll('.comment');
     commentElements.forEach(commentElement => {
@@ -92,8 +93,12 @@ commentsData[commentId].likesCount = commentsData[commentId].liked ? commentsDat
 renderComments();
   }
 
+
+ 
+
   
     
+main
  document.getElementById('add-comment').addEventListener('click', () => {
  const newCommentText = document.getElementById('new-comment').value;
    if (newCommentText.trim() !== '') {
